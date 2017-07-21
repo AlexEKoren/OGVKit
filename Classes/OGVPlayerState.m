@@ -29,6 +29,7 @@
 
     CFTimeInterval initTime; // [self baseTime] at the beginning of timeline counting
     CFTimeInterval offsetTime; // offset from initTime to 'live' time at the beginning of timeline counting
+    BOOL didInitOffset;
 
     BOOL playing;
     BOOL playAfterLoad;
@@ -73,6 +74,7 @@
         stream = inputStream;
         initTime = 0;
         offsetTime = 0;
+        didInitOffset = NO;
         playing = NO;
         seeking = NO;
         playAfterLoad = NO;
@@ -361,6 +363,12 @@
         return;
     }
     while (true) {
+        NSLog(@"PROCESS NEXT FRAME");
+        if (!didInitOffset) {
+            didInitOffset = YES;
+            initTime = self.baseTime;
+            offsetTime = 0;
+        }
         more = [decoder process];
         if (!more) {
             if (decoder.inputStream.state == OGVInputStreamStateFailed) {
