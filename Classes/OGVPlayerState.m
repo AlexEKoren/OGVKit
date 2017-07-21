@@ -414,6 +414,12 @@
         const float fudgeDelta = 0.1f;
         float playbackPosition = self.playbackPosition;
         float frameDelay = (frameEndTimestamp - playbackPosition);
+        if (!didInitOffset) {
+            frameDelay = 0;
+            didInitOffset = YES;
+            initTime = self.baseTime;
+            offsetTime = decoder.frameTimestamp;
+        }
         
         // See if the frame timestamp is behind the playhead
         BOOL readyToDecodeFrame = (frameDelay <= 0.0);
