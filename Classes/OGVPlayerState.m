@@ -371,6 +371,10 @@
         } else if (!didInitOffset && !decoder.frameReady) {
             NSLog(@"FRAME WASNT READY");
         }
+        
+        if (decoder.frameReady) {
+            NSLog(@"%f", decoder.frameTimestamp);
+        }
         more = [decoder process];
         if (!more) {
             if (decoder.inputStream.state == OGVInputStreamStateFailed) {
