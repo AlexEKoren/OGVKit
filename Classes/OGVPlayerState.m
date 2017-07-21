@@ -368,6 +368,8 @@
             didInitOffset = YES;
             initTime = self.baseTime;
             offsetTime = decoder.frameTimestamp;
+        } else if (!didInitOffset && !decoder.frameReady) {
+            NSLog(@"FRAME WASNT READY");
         }
         more = [decoder process];
         if (!more) {
