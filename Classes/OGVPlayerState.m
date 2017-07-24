@@ -363,7 +363,7 @@
         return;
     }
     while (true) {
-        NSLog(@"PROCESS NEXT FRAME");
+        //NSLog(@"PROCESS NEXT FRAME");
         if (!didInitOffset && decoder.frameReady) {
             didInitOffset = YES;
             initTime = self.baseTime;
@@ -373,7 +373,7 @@
         }
         
         if (decoder.frameReady) {
-            NSLog(@"%f", decoder.frameTimestamp);
+            //NSLog(@"%f", decoder.frameTimestamp);
         }
         more = [decoder process];
         if (!more) {
