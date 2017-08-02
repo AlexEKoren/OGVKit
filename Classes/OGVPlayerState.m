@@ -344,7 +344,7 @@
             }];
             if (playAfterLoad) {
                 playAfterLoad = NO;
-                [self startPlayback:0];
+                [self startPlayback:decoder.frameTimestamp];
             }
         } else {
             dispatch_async(decodeQueue, ^() {
