@@ -540,7 +540,10 @@
 
         if (nextDelay < INFINITY) {
             //NSLog(@"loop %f ms", nextDelay * 1000.0);
-            [self pingProcessing:nextDelay];
+            if (!didInitOffset)
+                [self pingProcessing:0];
+            else
+                [self pingProcessing:nextDelay];
             
             // End the processing loop and wait for next ping.
             return;
