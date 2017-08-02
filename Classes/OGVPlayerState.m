@@ -414,7 +414,7 @@
         const float fudgeDelta = 0.1f;
         float playbackPosition = self.playbackPosition;
         float frameDelay = (frameEndTimestamp - playbackPosition);
-        if (!didInitOffset) {
+        if (!didInitOffset && decoder.frameReady) {
             frameDelay = 0;
             didInitOffset = YES;
             initTime = self.baseTime;
