@@ -344,7 +344,7 @@
             }];
             if (playAfterLoad) {
                 playAfterLoad = NO;
-                [self startPlayback:decoder.frameTimestamp];
+                [self startPlayback:0];
             }
         } else {
             dispatch_async(decodeQueue, ^() {
@@ -364,7 +364,8 @@
     }
     while (true) {
         //NSLog(@"PROCESS NEXT FRAME");
-        if (!didInitOffset && decoder.frameReady) {
+        if (!didInitOffset && decoder.frameTimestamp >= 0) {
+            NSLog(@"FRAME TIMESTAMP IS %f", decoder.frameTimestamp);
             didInitOffset = YES;
             initTime = self.baseTime;
             offsetTime = decoder.frameTimestamp;
@@ -414,12 +415,6 @@
         const float fudgeDelta = 0.1f;
         float playbackPosition = self.playbackPosition;
         float frameDelay = (frameEndTimestamp - playbackPosition);
-        if (!didInitOffset && decoder.frameReady) {
-            frameDelay = 0;
-            didInitOffset = YES;
-            initTime = self.baseTime;
-            offsetTime = decoder.frameTimestamp;
-        }
         
         // See if the frame timestamp is behind the playhead
         BOOL readyToDecodeFrame = (frameDelay <= 0.0);
